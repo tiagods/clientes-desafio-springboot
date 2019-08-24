@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+layout:decorator="layout/LayoutBody">
+
+<head>
+	<title>Cadastro de cliente</title>
+	
+</head>
+
+<section layout:fragment="conteudo">
+<div class="card">
+	<div class="card-header">
+		<h4 class="card-title ti-titulo-panel">Cadastro de Cliente</h4>
+		<a class="btn btn-link ti-link-panel" th:href="@{/clientes}">Voltar para pesquisa</a>
+	</div>
+	<div class="card-body">
+		<form class="form" method="POST" th:action="@{/clientes}" th:object="${cliente}">
+			<div layout:include="default/MensagemSucesso"></div>
+			<div layout:include="default/MensagemErro"></div>
+			<input type="hidden" th:field="*{id}"/>
+			<div class="form-group">
+				<label for="nome">Nome do cliente</label>
+				<input class="form-control col-lg-5" type="text" id="nome" th:field="*{nome}" th:classappend="${#fields.hasErrors('nome')} ? border-danger" />
+			</div>
+			<div class="form-group">
+				<label for="credito">Cr&eacute;dito</label>
+				<div class="input-group">
+					<div class="input-group-addon">R$</div>
+					<input id="credito" type="text" class="form-control col-lg-4 js-decimal" th:field="*{credito}" th:classappend="${#fields.hasErrors('credito')} ? border-danger" />
+				</div>
+			</div>
+			<div class="form-group">	
+				<label for="risco">Risco</label>
+				<select id="risco" class="form-control col-lg-5" th:field="*{risco}">
+						<option th:each="risco : ${riscos}" th:value="${risco}" th:text="${risco.descricao}"></option>
+				</select>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary" type="submit">Salvar</button>
+			</div>
+		</form>
+	</div>
+</div>
+</section>
+</html>

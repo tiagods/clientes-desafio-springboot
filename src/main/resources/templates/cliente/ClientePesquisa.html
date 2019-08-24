@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+layout:decorator="layout/LayoutBody">
+
+<section layout:fragment="conteudo">
+	<div layout:include="default/MensagemSucesso"></div>
+	<div class="card">
+		<div class="card-header">
+			<h4 class="card-title ti-titulo-panel">Listagem de Clientes</h4>
+			<a class="btn btn-link ti-link-panel" th:href="@{/clientes/novo}">Novo Cadastro</a>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-10">
+					<form method="GET" class="form-horizontal" th:action="@{/clientes}" th:object="${filtro}">
+			   			<div class="form-group">
+			   				<div class="col-sm-10 col-md-6">
+			   					<div class="input-group filtro-pesquisa">
+			   						<input class="form-control" placeholder="Qual cliente você está procurando?"
+			   							autofocus="autofocus" th:field="*{nome}"></input>
+			   						<span class="input-group-btn">
+			   							<button type="submit" class="btn btn-default">
+			   								<i class="oi oi-magnifying-glass"></i>
+			   							</button>
+			   						</span>
+			   					</div>
+			   				</div>
+			   			</div>
+			   		</form>
+		   		</div>
+	   		</div>
+			<table class="table table-bordered table-hover table-condensed table-responsive">
+				<thead>
+					<tr>
+						<th class="text-center">*</th>
+						<th class="text-center">Cliente</th>
+						<th class="text-center">Limite de Cr&eacute;dito</th>
+						<th class="text-center">Risco</th>
+						<th class="text-center">Op&ccedil;&otilde;es</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cliente : ${clientes}">
+						<td th:text="${cliente.id}"></td>
+						<td th:text="${cliente.nome}"></td>
+						<td th:text="'R$ '+${cliente.moedaParaReal}"></td>
+						<td th:text="${cliente.risco.descricao}"></td>
+						<td class="text-center">
+							<a class="btn btn-link btn-xs oi oi-pencil" th:href="@{/clientes/{id}(id=${cliente.id})}" title="Editar" rel="tooltip" data-placement="top"></a>
+							<a class="btn btn-link btn-xs oi oi-trash text-primary" href="#" data-toggle="modal" data-target="#confirmacaoExclusaoModal"
+	   								th:attr="data-id=${cliente.id}, data-nome=${cliente.nome}" 
+	   								title="Excluir" rel="tooltip" data-placement="top">
+	   						</a>
+						</td>
+					</tr>
+					<tr class="text-center">
+						<td colspan="7" th:if="${#lists.isEmpty(clientes)}">Nenhum registro foi encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div layout:include="MensagemExclusao"></div>
+	</div>
+</section>
+</html>

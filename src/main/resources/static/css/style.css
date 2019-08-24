@@ -1,0 +1,34 @@
+@media(min-width: 768px){
+	.card{
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.alert{
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+}
+.ti-link-panel{
+	float: right;
+	padding: 5px 0px;
+}
+.ti-titulo-panel{
+	float: left;
+	padding: 0px;
+}
+.navegacao{
+	margin-bottom: 20px;
+}
+.logo{
+	max-width: 90px;
+}
+.logo-table{
+	max-height: 70px;
+}
+.filtro-pesquisa{
+	margin-left: -15px;
+}
+.botao-export{
+	float: right;
+	padding: 0px 0px 10px 0px; 
+	max-height: 50px;
